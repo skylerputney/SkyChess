@@ -1,9 +1,11 @@
 package com.skychess.graphics;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -28,6 +30,7 @@ public class GUI {
             for (int i = 0; i < 64; i++) {
                 this.add(new ChessTile(i));
             }
+            this.setPreferredSize(new Dimension(350, 350));
         }
     }
 
