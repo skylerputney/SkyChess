@@ -11,4 +11,7 @@ public abstract class Piece {
         this.isWhite = isWhite;
     }
 
+    public boolean isWhite() {
+        return isWhite;
+    }
 }
