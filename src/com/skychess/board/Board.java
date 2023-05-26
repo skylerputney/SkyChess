@@ -1,19 +1,22 @@
 package com.skychess.board;
 
-import java.awt.List;
 import java.util.Date;
 
-import com.skychess.pieces.Piece;
+import com.skychess.BoardUtilities;
 
 public class Board {
-    private java.util.List<Tile> tilesOnBoard;
+    private Tile[][] tilesOnBoard;
     final int BOARD_WIDTH = 8;
     Date creationDate;
 
-    public Board(java.util.List<Tile> boardTiles) {
+    public Board(Tile[][] boardTiles) {
+    	this.tilesOnBoard = boardTiles;
     }
 
-    public Tile getTile(int tileNum) {
-        return tilesOnBoard.get(tileNum);
+    public Tile getTile(int rank, int file) {
+        return tilesOnBoard[rank][file];
+    }
+    public Tile getTile(int pos) {
+    	return tilesOnBoard[pos / BoardUtilities.BOARD_WIDTH][pos % BoardUtilities.BOARD_WIDTH];
     }
 }
