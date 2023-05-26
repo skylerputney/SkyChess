@@ -104,6 +104,9 @@ public class GUI {
 							Move move = new Move(pieceToMove, destTile);
 							if(move.isValid()) {
 								board.executeMove(move);
+								sourceTile = null;
+								destTile = null;
+								pieceToMove = null;
 							}
 						}
 					}
