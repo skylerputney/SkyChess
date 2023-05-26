@@ -10,10 +10,11 @@ public class Move {
 		this.endTile = endTile;
 	}
 	
-	public void executeMove(Board b) {
-		b.getTile(p.getRank(), p.getFile()).clearTile();
-		endTile.clearTile();
-		endTile.setPiece(p);
+	public Piece getPieceToMove() {
+		return p;
+	}
+	public Tile getDestTile() {
+		return endTile;
 	}
 
 	public boolean isValid() {

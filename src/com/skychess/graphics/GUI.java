@@ -103,7 +103,7 @@ public class GUI {
 							destTile = board.getTile(tileRank, tileFile);
 							Move move = new Move(pieceToMove, destTile);
 							if(move.isValid()) {
-								move.executeMove(board);
+								board.executeMove(move);
 							}
 						}
 					}
@@ -112,7 +112,6 @@ public class GUI {
 						@Override
 						public void run() {
 						bp.drawBoard(board);
-							
 						}
 						
 					});
