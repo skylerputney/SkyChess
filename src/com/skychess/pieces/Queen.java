@@ -15,4 +15,10 @@ public class Queen extends Piece{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean isValidMove(Move move) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

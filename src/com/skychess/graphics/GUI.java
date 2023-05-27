@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import com.skychess.BoardUtilities;
 import com.skychess.board.Board;
 import com.skychess.board.Move;
 import com.skychess.board.Tile;
@@ -32,7 +33,8 @@ import com.skychess.pieces.Rook;
 public class GUI {
 
     private final JFrame frame;
-    List<ChessTile> tileList = new ArrayList<ChessTile>();
+    private List<ChessTile> tileList = new ArrayList<ChessTile>();
+    private ChessTile[][] tileArray = new ChessTile[8][8];
     private Board board;
     private Tile sourceTile, destTile;
     private Piece pieceToMove;
@@ -45,36 +47,62 @@ public class GUI {
         frame.setVisible(true);
     }
 
+    /**
+     * graphic representation of Board
+     * @author skyle
+     *
+     */
     private class BoardPanel extends JPanel {
         public BoardPanel() {
             super(new GridLayout(8, 8));
             this.setPreferredSize(new Dimension(8 * 50, 8 * 50));
             for (int i = 0; i < 8; i++) {
             	for(int j = 0; j < 8; j++) {
-                ChessTile ct = (new ChessTile(this, i, j));
+                ChessTile ct = (new ChessTile(this, j, i));
                 this.add(ct);
+                tileArray[j][i] = ct;
                 tileList.add(ct);
             	}
             }
          
         }
+        
+        /**
+         * redraws board
+         * @param b
+         */
         public void drawBoard(Board b) {
         	removeAll();
-        	for(ChessTile ct : tileList) {
-        		ct.drawTile(b);
-        		add(ct);
-        	}
+//        	tileList.clear();
+//        	var tiles = b.getTiles();
+//        	for(int i = 0; i < BoardUtilities.BOARD_WIDTH; i++) {
+//        		for(int j = 0; j < BoardUtilities.BOARD_WIDTH; j++) {
+//        			tileList.add(new ChessTile(this, tiles[i][j].getRank(), tiles[i][j].getFile()));
+//        		}
+//        	}
+        	for(int i = 0; i < BoardUtilities.BOARD_WIDTH; i++) {
+        		for(int j = 0; j < BoardUtilities.BOARD_WIDTH; j++) {
+        			tileArray[j][i].drawTile(b);
+        			add(tileArray[j][i]);
+        		}
+//        	}
         	validate();
         	repaint();
         }
         
     }
-
-    private class ChessTile extends JPanel {
+   }
+    
+    /**
+     * graphic representation of tile
+     * @author skyle
+     *
+     */
+ private class ChessTile extends JPanel {
         private int tileRank, tileFile;
         private BoardPanel bp;
         public ChessTile(BoardPanel b, int i, int j) {
-            super(new GridBagLayout());
+        	super(new GridBagLayout());
             bp = b;
             tileRank = i;
             tileFile = j;
@@ -86,7 +114,7 @@ public class GUI {
             this.addMouseListener(new MouseListener() {
 
 				@Override
-				public void mouseClicked(MouseEvent e) {
+				public void mouseClicked(final MouseEvent e) {
 					if(SwingUtilities.isRightMouseButton(e)) {
 						sourceTile = null;
 						destTile = null;
@@ -101,9 +129,14 @@ public class GUI {
 						}
 						else {
 							destTile = board.getTile(tileRank, tileFile);
-							Move move = new Move(pieceToMove, destTile);
+							Move move = new Move(board, pieceToMove, destTile);
 							if(move.isValid()) {
+								sourceTile = null;
+								destTile = null;
+								pieceToMove = null;
 								board.executeMove(move);
+							}
+							else {//logic if move is not valid
 								sourceTile = null;
 								destTile = null;
 								pieceToMove = null;
@@ -149,14 +182,21 @@ public class GUI {
             validate();
         }
         
+        /**
+         * draws tiles with proper color and piece, if applicable
+         * @param b
+         */
         public void drawTile(Board b) {
         	assignTilePiece(b);
         	  if ((tileRank + tileFile) % 2 == 1)
                   this.setBackground(Color.BLACK);
         	  validate();
-        	  repaint();
         }
 
+        /**
+         * adds a JLabel graphical representation of chess piece to tile
+         * @param b
+         */
         private void assignTilePiece(Board b){
             removeAll();
             Tile t = b.getTile(tileRank, tileFile);
@@ -189,5 +229,6 @@ public class GUI {
                 }
             }
         }
+
     }
 }

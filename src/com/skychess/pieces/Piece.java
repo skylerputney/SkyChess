@@ -12,8 +12,8 @@ public abstract class Piece {
     private int file; //y-coord
 
     public Piece(int rank, int file, boolean isWhite) {
-    	this.setRank(rank);
-    	this.setFile(file);
+    	this.rank = rank;
+    	this.file = file;
         this.isWhite = isWhite;
     }
 
@@ -22,6 +22,7 @@ public abstract class Piece {
     }
     
     public abstract List<Move> getValidMoves(Board b);
+    public abstract boolean isValidMove(Move move);
 
 	public int getRank() {
 		return rank;

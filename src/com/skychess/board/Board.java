@@ -23,10 +23,15 @@ public class Board {
     
 	public void executeMove(Move m) {
 		Piece toMove = m.getPieceToMove();
-		Tile oldTile = this.getTile(toMove.getRank(), toMove.getFile());
+		Tile oldTile = tilesOnBoard[toMove.getRank()][toMove.getFile()];
 		oldTile.clearTile();
 		Tile destTile = m.getDestTile();
-		//Need to update file,rank of Piece here
+		toMove.setRank(destTile.getRank());
+		toMove.setFile(destTile.getFile());
 		destTile.setPiece(toMove);
+	}
+
+	public Tile[][] getTiles() {
+		return tilesOnBoard;
 	}
 }

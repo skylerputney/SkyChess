@@ -6,6 +6,8 @@ import com.skychess.board.Board;
 import com.skychess.board.Move;
 
 public class Knight extends Piece{
+	
+	private static final int[][] VALID_MOVES = {{}, {}};
     public Knight(int rank, int file, boolean isWhite) {
         super(rank, file, isWhite);
     }
@@ -14,5 +16,11 @@ public class Knight extends Piece{
 	public List<Move> getValidMoves(Board b) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean isValidMove(Move move) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

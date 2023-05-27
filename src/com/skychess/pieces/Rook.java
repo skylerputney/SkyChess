@@ -1,5 +1,6 @@
 package com.skychess.pieces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.skychess.board.Board;
@@ -12,7 +13,13 @@ public class Rook extends Piece{
 
 	@Override
 	public List<Move> getValidMoves(Board b) {
+		List<Move> validMoves = new ArrayList<Move>();
+		return validMoves;
+	}
+
+	@Override
+	public boolean isValidMove(Move move) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 }
