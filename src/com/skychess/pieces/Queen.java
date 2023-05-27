@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.skychess.board.Board;
 import com.skychess.board.Move;
+import com.skychess.board.Tile;
 
 public class Queen extends Piece{
-    public Queen(int rank, int file, boolean isWhite) {
-        super(rank, file, isWhite);
+    public Queen(Tile currentTile, boolean isWhite) {
+        super(currentTile, isWhite);
     }
 
 	@Override

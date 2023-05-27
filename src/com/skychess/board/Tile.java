@@ -8,18 +8,16 @@ import com.skychess.pieces.Piece;
  *
  */
 public class Tile {
-    boolean isOccupied;
     private Piece pieceOnTile;
     private int rank, file;
     
     public Tile(int rank, int file) {
-    	isOccupied = false;
-    	rank = rank;
-    	file = file;
+    	this.rank = rank;
+    	this.file = file;
     	pieceOnTile = null;
     }
     public boolean isOccupied() {
-        return isOccupied;
+        return (pieceOnTile != null);
     }
 
     public Piece getPiece() {
@@ -27,11 +25,9 @@ public class Tile {
     }
     public void setPiece(Piece p){
         this.pieceOnTile = p;
-        this.isOccupied = true;
     }
     public void clearTile() {
     	this.pieceOnTile = null;
-    	this.isOccupied = false;
     }
 	public int getRank() {
 		return rank;

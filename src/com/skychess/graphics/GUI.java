@@ -110,6 +110,7 @@ public class GUI {
                 this.setBackground(Color.BLACK);
             assignTilePiece(board);
             setPreferredSize(new Dimension(10, 10));
+            this.add(new JLabel(this.tileRank + " " + this.tileFile)); //tile-coord labels
             setOpaque(true);
             this.addMouseListener(new MouseListener() {
 
@@ -129,7 +130,7 @@ public class GUI {
 						}
 						else {
 							destTile = board.getTile(tileRank, tileFile);
-							Move move = new Move(board, pieceToMove, destTile);
+							Move move = new Move(board, sourceTile, destTile);
 							if(move.isValid()) {
 								sourceTile = null;
 								destTile = null;
@@ -220,7 +221,6 @@ public class GUI {
                  else
                     imagePath.append("k");
                 imagePath.append(".png");
-                System.out.println(imagePath.toString());
                 try {
                     final BufferedImage pieceImage = ImageIO.read(new File(imagePath.toString()));
                     add(new JLabel(new ImageIcon(pieceImage)));

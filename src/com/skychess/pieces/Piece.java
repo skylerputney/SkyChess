@@ -2,19 +2,19 @@ package com.skychess.pieces;
 
 import java.util.List;
 
+import com.skychess.BoardUtilities;
 import com.skychess.board.Board;
 import com.skychess.board.Move;
+import com.skychess.board.Tile;
 
 public abstract class Piece {
 	
     private boolean isWhite;
-    private int rank; //x-coord
-    private int file; //y-coord
+    private Tile currentTile;
 
-    public Piece(int rank, int file, boolean isWhite) {
-    	this.rank = rank;
-    	this.file = file;
+    public Piece(Tile currentTile, boolean isWhite) {
         this.isWhite = isWhite;
+        this.currentTile = currentTile;
     }
 
     public boolean isWhite() {
@@ -22,21 +22,29 @@ public abstract class Piece {
     }
     
     public abstract List<Move> getValidMoves(Board b);
-    public abstract boolean isValidMove(Move move);
 
-	public int getRank() {
-		return rank;
+	
+    public int getDirection() {
+    	if(this.isWhite())
+    		return BoardUtilities.WHITE_DIRECTION;
+    	return BoardUtilities.BLACK_DIRECTION;
+    }
+    
+    public Tile getCurrentTile() {
+    	return this.currentTile;
+    }
+    
+    public void setCurrentTile(Tile tile) {
+    	this.currentTile = tile;
+    }
+    
+	public boolean isValidMove(Move move) {
+		for(Move m : getValidMoves(move.getBoard())) {
+			if(m.getDestTile() == move.getDestTile() && m.getPieceToMove() == move.getPieceToMove())
+				return true;
+		}
+		System.out.println("false");
+		return false;
 	}
-
-	public void setRank(int rank) {
-		this.rank = rank;
-	}
-
-	public int getFile() {
-		return file;
-	}
-
-	public void setFile(int file) {
-		this.file = file;
-	}
+    
 }
