@@ -28,6 +28,7 @@ public class Board {
 		Tile destTile = m.getDestTile();
 		destTile.setPiece(toMove);
 		toMove.setCurrentTile(destTile);
+		//add logic to change bln flag isFirstMove
 	}
 
 	public Tile[][] getTiles() {

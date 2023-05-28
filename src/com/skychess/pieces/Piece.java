@@ -25,6 +25,7 @@ public abstract class Piece {
 //    public abstract List<Move> getValidMoves(Board b);
     
     public abstract int[][] getMoveVector();
+    
 	public List<Move> getValidMoves(Board b) {
 		List<Move> validMoves = new ArrayList<Move>();
 		Tile currentTile = getCurrentTile();
@@ -41,6 +42,11 @@ public abstract class Piece {
 				Tile targetTile = b.getTile(newX, newY);
 				if(!targetTile.isOccupied()) {
 						validMoves.add(new Move(b, currentTile, targetTile));
+						if(this instanceof King) {//castling logic
+							for(Move m : ((King) this).getCastleMoves(b))
+								if(m != null)
+									validMoves.add(m);
+						}
 						if(this instanceof Knight || this instanceof King)
 							break;
 				}

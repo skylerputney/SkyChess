@@ -10,6 +10,7 @@ import com.skychess.board.Tile;
 
 public class Pawn extends Piece {
     private boolean isFirstMove;
+    private final int[][] PAWN_ATTACK_VECTOR = {{1, getDirection()}, {-1, getDirection()}};
     public Pawn(Tile currentTile, boolean isWhite, boolean firstMove) {
         super(currentTile, isWhite);
         this.isFirstMove = firstMove;
@@ -17,17 +18,35 @@ public class Pawn extends Piece {
     
 	@Override
 	public List<Move> getValidMoves(Board b) {
+		var here = super.getValidMoves(b);
 		List<Move> validMoves = new ArrayList<Move>();
 		int xPos = getCurrentTile().getRank();
 		int yPos = getCurrentTile().getFile();
 		int yIncr = getDirection();
 		yPos += yIncr;
-		if(xPos >=0 && yPos >= 0 && xPos < BoardUtilities.BOARD_WIDTH && yPos < BoardUtilities.BOARD_WIDTH) {
+		if(BoardUtilities.isValidPosition(xPos, yPos)) {
 			if(!b.getTile(xPos, yPos).isOccupied()) {
 				validMoves.add(new Move(b, getCurrentTile(), b.getTile(xPos, yPos)));
-				System.out.println("Valid move added for pawn at " + xPos + " " + yPos);
-				if(isFirstMove && !b.getTile(xPos, yPos + yIncr).isOccupied()) {
-					validMoves.add(new Move(b, getCurrentTile(), b.getTile(xPos, yPos + yIncr)));
+				}
+			}
+		if(this.isFirstMove) {
+		yPos += yIncr;
+		if(BoardUtilities.isValidPosition(xPos, yPos)) {
+			if(!b.getTile(xPos, yPos).isOccupied()) {
+				validMoves.add(new Move(b, getCurrentTile(), b.getTile(xPos, yPos)));
+				}
+		}
+		yPos -= yIncr;
+		}
+		yPos -= yIncr;
+		for(int[] v : PAWN_ATTACK_VECTOR) {
+			int newX = xPos + v[0];
+			int newY = yPos + v[1];
+			if(BoardUtilities.isValidPosition(newX, newY)){
+				if(b.getTile(newX, newY).isOccupied()) {
+					if(b.getTile(newX, newY).getPiece().isWhite() != this.isWhite()) {
+						validMoves.add(new Move(b, getCurrentTile(), b.getTile(newX, newY)));
+			}
 				}
 			}
 		}
@@ -36,8 +55,11 @@ public class Pawn extends Piece {
 
 	@Override
 	public int[][] getMoveVector() {
-		// TODO Auto-generated method stub
-		return null;
+		final int[][] pawnMoveVector = {{0, getDirection()}, {1, getDirection()}, {-1, getDirection()}}; //move forward, diagonal forward
+		return pawnMoveVector;
 	}
+	
+	
+	
 
 }
