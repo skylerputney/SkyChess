@@ -34,4 +34,10 @@ public class Pawn extends Piece {
 		return validMoves;
 	}
 
+	@Override
+	public int[][] getMoveVector() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

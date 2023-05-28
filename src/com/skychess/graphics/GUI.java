@@ -98,7 +98,7 @@ public class GUI {
      * @author skyle
      *
      */
- private class ChessTile extends JPanel {
+  public class ChessTile extends JPanel {
         private int tileRank, tileFile;
         private BoardPanel bp;
         public ChessTile(BoardPanel b, int i, int j) {
@@ -115,7 +115,7 @@ public class GUI {
             this.addMouseListener(new MouseListener() {
 
 				@Override
-				public void mouseClicked(final MouseEvent e) {
+				public void mouseClicked(final MouseEvent e) { //refractor into GameEngine as clickedTile(ChessTile tile) -> call here clickedTile(this)
 					if(SwingUtilities.isRightMouseButton(e)) {
 						sourceTile = null;
 						destTile = null;
@@ -153,7 +153,7 @@ public class GUI {
 						
 					});
 					
-				}
+ 				}
 
 				@Override
 				public void mousePressed(MouseEvent e) {
