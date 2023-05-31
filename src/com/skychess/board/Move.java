@@ -5,6 +5,8 @@ import com.skychess.pieces.Pawn;
 import com.skychess.pieces.Piece;
 import com.skychess.pieces.Rook;
 
+import player.Player;
+
 public class Move {
 	Piece pieceToMove;
 	Piece pieceToKill;
@@ -39,7 +41,8 @@ public class Move {
 		return b;
 	}
 	
-	public void executeMove(){
+	public void executeMove(Player moveMaker){
+		moveMaker.setPlayerTurn(false);
 		Piece toMove = this.getPieceToMove();
 		Tile oldTile = b.getTiles()[this.getSourceTile().getRank()][this.getSourceTile().getFile()];
 		Tile destTile = this.getDestTile();
