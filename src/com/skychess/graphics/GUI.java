@@ -127,7 +127,7 @@ public class GUI {
 								sourceTile = null;
 								destTile = null;
 								pieceToMove = null;
-								move.executeMove();
+								//move.executeMove();
 							}
 							else {//logic if move is not valid
 								sourceTile = null;
