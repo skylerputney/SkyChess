@@ -8,12 +8,16 @@ import com.skychess.board.Board;
 import com.skychess.board.Move;
 import com.skychess.board.Tile;
 
-public class Pawn extends Piece {
+import listeners.MoveListener;
+
+public class Pawn extends Piece implements MoveListener{
     private boolean isFirstMove;
+    private boolean isEnPassantCaptureEligible;
     private final int[][] PAWN_ATTACK_VECTOR = {{1, getDirection()}, {-1, getDirection()}};
     public Pawn(Tile currentTile, boolean isWhite, boolean firstMove) {
         super(currentTile, isWhite);
         this.isFirstMove = firstMove;
+        this.isEnPassantCaptureEligible = false;
     }
     
 	@Override
@@ -59,7 +63,19 @@ public class Pawn extends Piece {
 		return pawnMoveVector;
 	}
 	
+	public boolean isFirstMove() {
+		return isFirstMove;
+	}
 	
+	public void setFirstMove(boolean isFirstMove) {
+		this.isFirstMove = isFirstMove;
+	}
+
+	@Override
+	public void moveExecuted() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

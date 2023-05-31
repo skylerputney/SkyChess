@@ -89,12 +89,12 @@ public class King extends Piece {
 			return null;
 		if(!((Rook) kingSide).isFirstMove())
 			return null;
-		while(currRank < BoardUtilities.BOARD_WIDTH) {
+		while(currRank < BoardUtilities.BOARD_WIDTH - 1) {
 			if(b.getTile(currRank, currTile.getFile()).isOccupied()) //add logic for not under threat of check
 				break;
 			currRank++;
 		}
-		if(currRank == BoardUtilities.BOARD_WIDTH)
+		if(currRank == BoardUtilities.BOARD_WIDTH - 1)
 			return new Move(b, currTile, destTile);
 		return null;
 	}

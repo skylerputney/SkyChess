@@ -2,7 +2,6 @@ package com.skychess.board;
 
 import java.util.Date;
 
-import com.skychess.BoardUtilities;
 import com.skychess.pieces.Piece;
 
 public class Board {
@@ -17,16 +16,13 @@ public class Board {
     public Tile getTile(int rank, int file) {
         return tilesOnBoard[rank][file];
     }
-    public Tile getTile(int pos) {
-    	return tilesOnBoard[pos / BoardUtilities.BOARD_WIDTH][pos % BoardUtilities.BOARD_WIDTH];
-    }
-    
+
 	public void executeMove(Move m) {
 		Piece toMove = m.getPieceToMove();
 		Tile oldTile = tilesOnBoard[m.getSourceTile().getRank()][m.getSourceTile().getFile()];
-		oldTile.clearTile();
 		Tile destTile = m.getDestTile();
 		destTile.setPiece(toMove);
+		oldTile.clearTile();
 		toMove.setCurrentTile(destTile);
 		//add logic to change bln flag isFirstMove
 	}

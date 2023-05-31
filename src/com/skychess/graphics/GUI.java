@@ -73,13 +73,6 @@ public class GUI {
          */
         public void drawBoard(Board b) {
         	removeAll();
-//        	tileList.clear();
-//        	var tiles = b.getTiles();
-//        	for(int i = 0; i < BoardUtilities.BOARD_WIDTH; i++) {
-//        		for(int j = 0; j < BoardUtilities.BOARD_WIDTH; j++) {
-//        			tileList.add(new ChessTile(this, tiles[i][j].getRank(), tiles[i][j].getFile()));
-//        		}
-//        	}
         	for(int i = 0; i < BoardUtilities.BOARD_WIDTH; i++) {
         		for(int j = 0; j < BoardUtilities.BOARD_WIDTH; j++) {
         			tileArray[j][i].drawTile(b);
@@ -113,7 +106,6 @@ public class GUI {
             this.add(new JLabel(this.tileRank + " " + this.tileFile)); //tile-coord labels
             setOpaque(true);
             this.addMouseListener(new MouseListener() {
-
 				@Override
 				public void mouseClicked(final MouseEvent e) { //refractor into GameEngine as clickedTile(ChessTile tile) -> call here clickedTile(this)
 					if(SwingUtilities.isRightMouseButton(e)) {

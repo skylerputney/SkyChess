@@ -43,9 +43,7 @@ public abstract class Piece {
 				if(!targetTile.isOccupied()) {
 						validMoves.add(new Move(b, currentTile, targetTile));
 						if(this instanceof King) {//castling logic
-							for(Move m : ((King) this).getCastleMoves(b))
-								if(m != null)
-									validMoves.add(m);
+						((King) this).getCastleMoves(b).forEach( m ->  { if(m != null) validMoves.add(m); });
 						}
 						if(this instanceof Knight || this instanceof King)
 							break;
