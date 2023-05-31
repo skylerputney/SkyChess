@@ -3,8 +3,8 @@ package com.skychess.pieces;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.skychess.BoardUtilities;
 import com.skychess.board.Board;
+import com.skychess.board.BoardUtilities;
 
 class KnightTest {
 

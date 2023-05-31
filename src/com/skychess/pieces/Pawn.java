@@ -3,21 +3,17 @@ package com.skychess.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.skychess.BoardUtilities;
 import com.skychess.board.Board;
+import com.skychess.board.BoardUtilities;
 import com.skychess.board.Move;
 import com.skychess.board.Tile;
 
-import listeners.MoveListener;
-
-public class Pawn extends Piece implements MoveListener{
+public class Pawn extends Piece{
     private boolean isFirstMove;
-    private boolean isEnPassantCaptureEligible;
     private final int[][] PAWN_ATTACK_VECTOR = {{1, getDirection()}, {-1, getDirection()}};
     public Pawn(Tile currentTile, boolean isWhite, boolean firstMove) {
         super(currentTile, isWhite);
         this.isFirstMove = firstMove;
-        this.isEnPassantCaptureEligible = false;
     }
     
 	@Override
@@ -70,12 +66,6 @@ public class Pawn extends Piece implements MoveListener{
 	public void setFirstMove(boolean isFirstMove) {
 		this.isFirstMove = isFirstMove;
 	}
-
-	@Override
-	public void moveExecuted() {
-		// TODO Auto-generated method stub
-		
-	}
 	
-
+	
 }

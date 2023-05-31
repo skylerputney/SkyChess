@@ -1,7 +1,5 @@
-package com.skychess;
+package com.skychess.board;
 
-import com.skychess.board.Board;
-import com.skychess.board.Tile;
 import com.skychess.pieces.Bishop;
 import com.skychess.pieces.King;
 import com.skychess.pieces.Knight;

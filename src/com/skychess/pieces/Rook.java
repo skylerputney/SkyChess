@@ -1,6 +1,6 @@
 package com.skychess.pieces;
 
-import com.skychess.BoardUtilities;
+import com.skychess.board.BoardUtilities;
 import com.skychess.board.Tile;
 
 public class Rook extends Piece{

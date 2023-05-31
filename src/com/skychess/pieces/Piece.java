@@ -3,8 +3,8 @@ package com.skychess.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.skychess.BoardUtilities;
 import com.skychess.board.Board;
+import com.skychess.board.BoardUtilities;
 import com.skychess.board.Move;
 import com.skychess.board.Tile;
 

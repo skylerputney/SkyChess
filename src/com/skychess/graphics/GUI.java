@@ -19,8 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import com.skychess.BoardUtilities;
+import com.skychess.SkyChess;
 import com.skychess.board.Board;
+import com.skychess.board.BoardUtilities;
 import com.skychess.board.Move;
 import com.skychess.board.Tile;
 import com.skychess.pieces.Bishop;
@@ -38,8 +39,10 @@ public class GUI {
     private Board board;
     private Tile sourceTile, destTile;
     private Piece pieceToMove;
-    public GUI(Board board) {
-        this.board = board;
+    private SkyChess game;
+    public GUI(SkyChess game) {
+    	this.game = game;
+        this.board = game.getBoard();
         this.frame = new JFrame("Sky Chess");
         frame.setSize(600, 600);
         frame.add(new BoardPanel());
@@ -127,7 +130,8 @@ public class GUI {
 								sourceTile = null;
 								destTile = null;
 								pieceToMove = null;
-								//move.executeMove();
+								game.getCurrentPlayer().executeMove(move);
+								game.updateCurrentPlayer();
 							}
 							else {//logic if move is not valid
 								sourceTile = null;
