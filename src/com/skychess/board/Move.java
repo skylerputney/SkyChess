@@ -1,6 +1,9 @@
 package com.skychess.board;
 
+import com.skychess.pieces.King;
+import com.skychess.pieces.Pawn;
 import com.skychess.pieces.Piece;
+import com.skychess.pieces.Rook;
 
 public class Move {
 	Piece pieceToMove;
@@ -34,6 +37,22 @@ public class Move {
 	}
 	public Board getBoard() {
 		return b;
+	}
+	
+	public void executeMove(){
+		Piece toMove = this.getPieceToMove();
+		Tile oldTile = b.getTiles()[this.getSourceTile().getRank()][this.getSourceTile().getFile()];
+		Tile destTile = this.getDestTile();
+		destTile.setPiece(toMove);
+		oldTile.clearTile();
+		toMove.setCurrentTile(destTile);
+		//add logic to change bln flag isFirstMove
+		if(toMove instanceof Pawn)
+			((Pawn) toMove).setFirstMove(false);
+		else if(toMove instanceof King)
+			((King)toMove).setFirstMove(false);
+		else if(toMove instanceof Rook)
+			((Rook)toMove).setFirstMove(false);
 	}
 	
 //	public boolean equals(Move m) {

@@ -98,5 +98,10 @@ public class King extends Piece {
 			return new Move(b, currTile, destTile);
 		return null;
 	}
+
+	public void setFirstMove(boolean firstMoveFlag) {
+		this.isFirstMove = firstMoveFlag;
+		
+	}
 		
 }

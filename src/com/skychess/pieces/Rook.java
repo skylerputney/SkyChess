@@ -20,5 +20,9 @@ public class Rook extends Piece{
 	public boolean isFirstMove() {
 		return this.firstMove;
 	}
+	
+	public void setFirstMove(boolean firstMoveFlag) {
+		this.firstMove = firstMoveFlag;
+	}
 
 }
