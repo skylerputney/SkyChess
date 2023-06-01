@@ -29,7 +29,7 @@ public class Pawn extends Piece{
 				validMoves.add(new Move(b, getCurrentTile(), b.getTile(xPos, yPos)));
 				}
 			}
-		if(this.isFirstMove) {
+		if(this.isFirstMove && !b.getTile(xPos, yPos).isOccupied()) {
 		yPos += yIncr;
 		if(BoardUtilities.isValidPosition(xPos, yPos)) {
 			if(!b.getTile(xPos, yPos).isOccupied()) {
