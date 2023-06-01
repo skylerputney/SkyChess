@@ -130,10 +130,8 @@ public class GUI {
 								sourceTile = null;
 								destTile = null;
 								pieceToMove = null;
-								if(board.getCurrentPlayer().getActivePieces().get(0).isWhite() == move.getPieceToMove().isWhite()) {
 									board.getCurrentPlayer().executeMove(move);
 									board.updateCurrentPlayer();
-								}
 							}
 							else {//logic if move is not valid
 								sourceTile = null;

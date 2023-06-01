@@ -27,10 +27,24 @@ public class Board {
     }
     public static Board createNewBoard(Tile[][] boardTiles) {
     	Board b = new Board(boardTiles);
-    	b.setWhitePlayer(new WhitePlayer(b.getActiveWhitePieces()));
-    	b.setBlackPlayer(new BlackPlayer(b.getActiveBlackPieces()));
+    	WhitePlayer wp = new WhitePlayer(b.getActiveWhitePieces());
+    	BlackPlayer bp = new BlackPlayer(b.getActiveBlackPieces());
+    	wp.setPlayerKing(); bp.setPlayerKing();
+    	b.setWhitePlayer(wp);
+    	b.setBlackPlayer(bp);
+    	
     	return b;
     }
+    
+	public static Board createNewBoard(Board b) {
+		Board board = createNewBoard(b.getTiles());
+    	board.setCurrentPlayer(b.getCurrentPlayer());
+    	return board;
+	}
+	
+	public void setCurrentPlayer(Player p) {
+		this.currentPlayer = p;
+	}
 
     public Tile getTile(int rank, int file) {
         return tilesOnBoard[rank][file];

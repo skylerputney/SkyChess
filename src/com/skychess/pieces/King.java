@@ -38,13 +38,17 @@ public class King extends Piece {
 	
 	}
 	
+	public boolean isInCheck(Board b) {
+		return this.getCurrentTile().isUnderThreat(b);
+	}
+	
 	public List<Move> getCastleMoves(Board b) {
 		List<Move> validMoves = new ArrayList<Move>();
 		if(!this.isFirstMove)
 			return validMoves;
 		validMoves.add(getKingSideCastleMove(b));
 		validMoves.add(getQueenSideCastleMove(b));
-		System.out.println("Valid castling moves: " + validMoves);
+		System.out.println("isFirstMove? " + isFirstMove + ", Valid castling moves: " + validMoves);
 		return validMoves.stream().filter(Objects::nonNull).toList();
 	}
 	
@@ -64,13 +68,13 @@ public class King extends Piece {
 		if(!((Rook) queenSide).isFirstMove())
 			return null;
 		while(currRank > 0) {
-			//System.out.println(currRank);
-			if(b.getTile(currRank, currTile.getFile()).isOccupied() || b.getTile(currRank, currTile.getFile()).isUnderThreat(b)) {
+			System.out.println(b.getTile(currRank, currTile.getFile()).isUnderThreat(b));
+			if(b.getTile(currRank, currTile.getFile()).isOccupied() || b.getTile(currRank, currTile.getFile()).isUnderThreat(b)) {//FIX TO ALSO CHECK ROOK TILE NOT UNDER THREAT
 				break;
 			}
 			currRank--;
 		}
-		if(currRank == 0)
+		if(currRank == 0 && !b.getTile(currRank, currTile.getFile()).isUnderThreat(b))
 			return new Move(b, currTile, destTile);
 		else
 			return null;
@@ -92,12 +96,13 @@ public class King extends Piece {
 		if(!((Rook) kingSide).isFirstMove())
 			return null;
 		while(currRank < BoardUtilities.BOARD_WIDTH - 1) {
+			System.out.println("kingSide: " + b.getTile(currRank, currTile.getFile()).isUnderThreat(b));
 			if(b.getTile(currRank, currTile.getFile()).isOccupied() || b.getTile(currRank, currTile.getFile()).isUnderThreat(b)) {
 				break;
 			}
 			currRank++;
 		}
-		if(currRank == BoardUtilities.BOARD_WIDTH - 1)
+		if(currRank == BoardUtilities.BOARD_WIDTH - 1 && !b.getTile(currRank, currTile.getFile()).isUnderThreat(b))
 			return new Move(b, currTile, destTile);
 		return null;
 	}

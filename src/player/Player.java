@@ -2,6 +2,7 @@ package player;
 
 import java.util.List;
 
+import com.skychess.board.Board;
 import com.skychess.board.Move;
 import com.skychess.board.Tile;
 import com.skychess.pieces.King;
@@ -19,6 +20,7 @@ public class Player {
 		this.id = this.hashCode();
 	}
 	
+	
 	public int getPlayerID() {
 		return this.id;
 	}
@@ -28,6 +30,9 @@ public class Player {
 		return activePieces;
 	}
 	
+	public void setPlayerKing() {
+		activePieces.forEach(p -> {if(p instanceof King) this.playerKing = (King) p; });
+	}
 	public void setActivePieces(List<Piece> activePieces) {
 		this.activePieces = activePieces;
 	}
@@ -53,5 +58,9 @@ public class Player {
 
 	public boolean isWhite() {
 		return (this instanceof WhitePlayer);
+	}
+
+	public boolean isInCheck(Board b) {
+		return playerKing.isInCheck(b);
 	}
 }

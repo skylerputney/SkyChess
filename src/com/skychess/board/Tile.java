@@ -48,7 +48,8 @@ public class Tile {
     
 	//returns true if this tile is at risk of being captured by an enemy piece
 	public boolean isUnderThreat(Board b) {
-		List<Move> l = Arrays.stream(b.getTiles()).flatMap(t -> Arrays.stream(t)).map(t -> t.getPiece()).filter(Objects::nonNull).filter(p -> p.isWhite() == b.getOpponent().isWhite()).map(p -> p.getValidMoves(b)).flatMap(m -> m.stream()).toList();
+		List<Move> l = Arrays.stream(b.getTiles()).flatMap(t -> Arrays.stream(t)).map(t -> t.getPiece()).filter(Objects::nonNull).filter(p -> b.getOpponent().isWhite() == p.isWhite()  ).map(p -> p.getValidMoves(b)).flatMap(m -> m.stream()).toList();
+																																		//logic here is only returning white pieces
 		for(Move m : l) {
 			if(m.getDestTile().equals(this))
 				return true;
