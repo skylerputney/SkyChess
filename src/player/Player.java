@@ -2,7 +2,6 @@ package player;
 
 import java.util.List;
 
-import com.skychess.board.Board;
 import com.skychess.board.Move;
 import com.skychess.board.Tile;
 import com.skychess.pieces.King;
@@ -13,21 +12,11 @@ import com.skychess.pieces.Rook;
 public class Player {
 
 	private int id;
-	private Board board;
-	private boolean isPlayerTurn;
 	private List<Piece> activePieces;
+	private King playerKing;
 	
-	public Player(Board board) {
-		this.board = board;
+	public Player() {
 		this.id = this.hashCode();
-	}
-	
-	public boolean isPlayerTurn() {
-		return isPlayerTurn;
-	}
-	
-	public void setPlayerTurn(boolean turnFlag) {
-		isPlayerTurn = turnFlag;
 	}
 	
 	public int getPlayerID() {
@@ -50,6 +39,7 @@ public class Player {
 		destTile.setPiece(toMove);
 		oldTile.clearTile();
 		toMove.setCurrentTile(destTile);
+		m.getBoard().setEnPassantPawn(null);
 		if(toMove instanceof Pawn) {
 			((Pawn) toMove).setFirstMove(false);
 			if(destTile.getFile() == oldTile.getFile() + ((Pawn)toMove).getDirection() * 2)
@@ -59,5 +49,9 @@ public class Player {
 			((King)toMove).setFirstMove(false);
 		else if(toMove instanceof Rook)
 			((Rook)toMove).setFirstMove(false);
+	}
+
+	public boolean isWhite() {
+		return (this instanceof WhitePlayer);
 	}
 }

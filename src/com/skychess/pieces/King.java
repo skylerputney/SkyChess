@@ -2,6 +2,7 @@ package com.skychess.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.skychess.board.Board;
 import com.skychess.board.BoardUtilities;
@@ -44,7 +45,7 @@ public class King extends Piece {
 		validMoves.add(getKingSideCastleMove(b));
 		validMoves.add(getQueenSideCastleMove(b));
 		System.out.println("Valid castling moves: " + validMoves);
-		return validMoves;
+		return validMoves.stream().filter(Objects::nonNull).toList();
 	}
 	
 	
@@ -63,9 +64,10 @@ public class King extends Piece {
 		if(!((Rook) queenSide).isFirstMove())
 			return null;
 		while(currRank > 0) {
-			System.out.println(currRank);
-			if(b.getTile(currRank, currTile.getFile()).isOccupied()) //add logic for not under threat of check
+			//System.out.println(currRank);
+			if(b.getTile(currRank, currTile.getFile()).isOccupied() || b.getTile(currRank, currTile.getFile()).isUnderThreat(b)) {
 				break;
+			}
 			currRank--;
 		}
 		if(currRank == 0)
@@ -90,8 +92,9 @@ public class King extends Piece {
 		if(!((Rook) kingSide).isFirstMove())
 			return null;
 		while(currRank < BoardUtilities.BOARD_WIDTH - 1) {
-			if(b.getTile(currRank, currTile.getFile()).isOccupied()) //add logic for not under threat of check
+			if(b.getTile(currRank, currTile.getFile()).isOccupied() || b.getTile(currRank, currTile.getFile()).isUnderThreat(b)) {
 				break;
+			}
 			currRank++;
 		}
 		if(currRank == BoardUtilities.BOARD_WIDTH - 1)

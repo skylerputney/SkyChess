@@ -42,9 +42,6 @@ public abstract class Piece {
 				Tile targetTile = b.getTile(newX, newY);
 				if(!targetTile.isOccupied()) {
 						validMoves.add(new Move(b, currentTile, targetTile));
-						if(this instanceof King) {//castling logic
-						((King) this).getCastleMoves(b).forEach( m ->  { if(m != null) validMoves.add(m); });
-						}
 						if(this instanceof Knight || this instanceof King)
 							break;
 				}
@@ -62,6 +59,16 @@ public abstract class Piece {
 		}
 		return validMoves;
 	}
+	
+	public List<Move> getAllValidMoves(Board b){
+		var moves = getValidMoves(b);
+		if(this instanceof King) {
+			moves.addAll(((King) this).getCastleMoves(b));
+		}
+		return moves;
+	}
+	
+	
 
 	
     public int getDirection() {
@@ -79,7 +86,7 @@ public abstract class Piece {
     }
     
 	public boolean isValidMove(Move move) {
-		for(Move m : getValidMoves(move.getBoard())) {
+		for(Move m : getAllValidMoves(move.getBoard())) {
 			if(m.getDestTile() == move.getDestTile() && m.getPieceToMove() == move.getPieceToMove())
 				return true;
 		}

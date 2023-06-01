@@ -17,7 +17,7 @@ public class BoardUtilities {
 	
     public static Board generateDefaultBoard(){
         var pieceTiles = generateDefaultPieceTiles();
-        Board b = new Board(pieceTiles);
+        Board b = Board.createNewBoard(pieceTiles);
         return b;
     }
 
