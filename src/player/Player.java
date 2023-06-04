@@ -38,22 +38,32 @@ public class Player {
 	}
 	
 	public void executeMove(Move m){
+		boolean successfulMove = true;
 		Piece toMove = m.getPieceToMove();
 		Tile oldTile = m.getBoard().getTiles()[m.getSourceTile().getRank()][m.getSourceTile().getFile()];
 		Tile destTile = m.getDestTile();
-		destTile.setPiece(toMove);
+		Piece killedPiece = destTile.setPiece(toMove);
 		oldTile.clearTile();
 		toMove.setCurrentTile(destTile);
-		m.getBoard().setEnPassantPawn(null);
-		if(toMove instanceof Pawn) {
-			((Pawn) toMove).setFirstMove(false);
-			if(destTile.getFile() == oldTile.getFile() + ((Pawn)toMove).getDirection() * 2)
-				m.getBoard().setEnPassantPawn((Pawn) toMove);
+		if(m.getBoard().getCurrentPlayer().isInCheck(m.getBoard())) {
+			toMove.setCurrentTile(oldTile);
+			destTile.setPiece(killedPiece);
+			oldTile.setPiece(toMove);
+			successfulMove = false;
 		}
-		else if(toMove instanceof King)
-			((King)toMove).setFirstMove(false);
-		else if(toMove instanceof Rook)
-			((Rook)toMove).setFirstMove(false);
+		if(successfulMove) {
+			m.getBoard().setEnPassantPawn(null);
+			if(toMove instanceof Pawn) {
+				((Pawn) toMove).setFirstMove(false);
+				if(destTile.getFile() == oldTile.getFile() + ((Pawn)toMove).getDirection() * 2)
+					m.getBoard().setEnPassantPawn((Pawn) toMove);
+			}
+			else if(toMove instanceof King)
+				((King)toMove).setFirstMove(false);
+			else if(toMove instanceof Rook)
+				((Rook)toMove).setFirstMove(false);
+			m.getBoard().updateCurrentPlayer();
+		}
 	}
 
 	public boolean isWhite() {

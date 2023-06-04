@@ -37,11 +37,11 @@ public class Move {
 	}
 	
 	
-//	public boolean equals(Move m) {
-//		if (p == m.getPieceToMove() && this.endTile == m.getDestTile() && this.b == m.getBoard())
-//			return true;
-//		return false;
-//	}
+	public boolean equals(Move m) {
+		if (pieceToMove == m.getPieceToMove() && this.endTile == m.getDestTile() && this.b == m.getBoard())
+			return true;
+		return false;
+	}
 	
 
 }

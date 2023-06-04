@@ -27,8 +27,11 @@ public class Tile {
     public Piece getPiece() {
         return pieceOnTile;
     }
-    public void setPiece(Piece p){
+    //updates current piece and returns previous piece
+    public Piece setPiece(Piece p){
+    	Piece current = this.pieceOnTile;
         this.pieceOnTile = p;
+        return current;
     }
     public void clearTile() {
     	this.pieceOnTile = null;
@@ -48,10 +51,10 @@ public class Tile {
     
 	//returns true if this tile is at risk of being captured by an enemy piece
 	public boolean isUnderThreat(Board b) {
-		List<Move> l = Arrays.stream(b.getTiles()).flatMap(t -> Arrays.stream(t)).map(t -> t.getPiece()).filter(Objects::nonNull).filter(p -> b.getOpponent().isWhite() == p.isWhite()  ).map(p -> p.getValidMoves(b)).flatMap(m -> m.stream()).toList();
+		List<Move> l = Arrays.stream(b.getTiles()).flatMap(t -> Arrays.stream(t)).map(t -> t.getPiece()).filter(Objects::nonNull).map(p -> p.getValidMoves(b)).flatMap(m -> m.stream()).toList();	//.filter(p -> b.getOpponent().isWhite() == p.isWhite()  )
 																																		//logic here is only returning white pieces
 		for(Move m : l) {
-			if(m.getDestTile().equals(this))
+			if(m.getDestTile().equals(this) && b.getOpponent().isWhite() == m.getPieceToMove().isWhite())
 				return true;
 		}
 		return false;

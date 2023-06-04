@@ -50,6 +50,7 @@ public class GUI {
         frame.setVisible(true);
     }
 
+
     /**
      * graphic representation of Board
      * @author skyle
@@ -131,7 +132,6 @@ public class GUI {
 								destTile = null;
 								pieceToMove = null;
 									board.getCurrentPlayer().executeMove(move);
-									board.updateCurrentPlayer();
 							}
 							else {//logic if move is not valid
 								sourceTile = null;

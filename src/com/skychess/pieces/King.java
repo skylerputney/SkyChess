@@ -48,7 +48,6 @@ public class King extends Piece {
 			return validMoves;
 		validMoves.add(getKingSideCastleMove(b));
 		validMoves.add(getQueenSideCastleMove(b));
-		System.out.println("isFirstMove? " + isFirstMove + ", Valid castling moves: " + validMoves);
 		return validMoves.stream().filter(Objects::nonNull).toList();
 	}
 	
@@ -69,7 +68,7 @@ public class King extends Piece {
 			return null;
 		while(currRank > 0) {
 			System.out.println(b.getTile(currRank, currTile.getFile()).isUnderThreat(b));
-			if(b.getTile(currRank, currTile.getFile()).isOccupied() || b.getTile(currRank, currTile.getFile()).isUnderThreat(b)) {//FIX TO ALSO CHECK ROOK TILE NOT UNDER THREAT
+			if(b.getTile(currRank, currTile.getFile()).isOccupied() || b.getTile(currRank, currTile.getFile()).isUnderThreat(b)) {
 				break;
 			}
 			currRank--;

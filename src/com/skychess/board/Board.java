@@ -22,17 +22,23 @@ public class Board {
 	private BlackPlayer blackPlayer;
 	private Player currentPlayer;
 
-    public Board(Tile[][] boardTiles) {
+    private Board(Tile[][] boardTiles) {
     	this.tilesOnBoard = boardTiles;
     }
+    
+    /*
+     * Returns a new instance of a board with whiteplayer automatically currentPlayer
+     */
     public static Board createNewBoard(Tile[][] boardTiles) {
+    	//Tile[][] copyTiles = new Tile[boardTiles.length][boardTiles[0].length];
+    	//Arrays.stream(boardTiles).flatMap(t -> Arrays.stream(t)).forEach(t -> {copyTiles[t.getRank()][t.getFile()] = new Tile(t.getRank(), t.getFile()); if(t.getPiece() != null) copyTiles[t.getRank()][t.getFile()].setPiece(t.getPiece()); });
     	Board b = new Board(boardTiles);
     	WhitePlayer wp = new WhitePlayer(b.getActiveWhitePieces());
     	BlackPlayer bp = new BlackPlayer(b.getActiveBlackPieces());
     	wp.setPlayerKing(); bp.setPlayerKing();
     	b.setWhitePlayer(wp);
     	b.setBlackPlayer(bp);
-    	
+    	b.setCurrentPlayer(wp);
     	return b;
     }
     

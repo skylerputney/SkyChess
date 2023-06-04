@@ -88,20 +88,9 @@ public abstract class Piece {
 	public boolean isValidMove(Move move) {
 		if(move.getBoard().getCurrentPlayer().isWhite() != this.isWhite())
 			return false;
-		Move toTest = null;
-		Board tester = Board.createNewBoard(move.getBoard());
-		for(Move m : tester.getTile(this.getCurrentTile().getRank(), this.getCurrentTile().getFile()).getPiece().getAllValidMoves(tester)) {
-			if(m.getDestTile() == move.getDestTile() && m.getPieceToMove() == move.getPieceToMove())
-				toTest = m;
-		}
-		if(toTest != null) {
-			tester.getCurrentPlayer().executeMove(toTest);//executing move on test instance of board
-			tester.updateCurrentPlayer();
-			if(tester.getOpponent().isInCheck(tester)) {//if player who just moved is now in check
-				return false; //it's not a valid move
-			}
-		}
-		return toTest != null;
+		if(getAllValidMoves(move.getBoard()).stream().anyMatch(m -> m.equals(move)))
+			return true;
+		return false;
 	}
     
 }
