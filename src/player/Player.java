@@ -3,12 +3,8 @@ package player;
 import java.util.List;
 
 import com.skychess.board.Board;
-import com.skychess.board.Move;
-import com.skychess.board.Tile;
 import com.skychess.pieces.King;
-import com.skychess.pieces.Pawn;
 import com.skychess.pieces.Piece;
-import com.skychess.pieces.Rook;
 
 public class Player {
 
@@ -37,34 +33,6 @@ public class Player {
 		this.activePieces = activePieces;
 	}
 	
-	public void executeMove(Move m){
-		boolean successfulMove = true;
-		Piece toMove = m.getPieceToMove();
-		Tile oldTile = m.getBoard().getTiles()[m.getSourceTile().getRank()][m.getSourceTile().getFile()];
-		Tile destTile = m.getDestTile();
-		Piece killedPiece = destTile.setPiece(toMove);
-		oldTile.clearTile();
-		toMove.setCurrentTile(destTile);
-		if(m.getBoard().getCurrentPlayer().isInCheck(m.getBoard())) {
-			toMove.setCurrentTile(oldTile);
-			destTile.setPiece(killedPiece);
-			oldTile.setPiece(toMove);
-			successfulMove = false;
-		}
-		if(successfulMove) {
-			m.getBoard().setEnPassantPawn(null);
-			if(toMove instanceof Pawn) {
-				((Pawn) toMove).setFirstMove(false);
-				if(destTile.getFile() == oldTile.getFile() + ((Pawn)toMove).getDirection() * 2)
-					m.getBoard().setEnPassantPawn((Pawn) toMove);
-			}
-			else if(toMove instanceof King)
-				((King)toMove).setFirstMove(false);
-			else if(toMove instanceof Rook)
-				((Rook)toMove).setFirstMove(false);
-			m.getBoard().updateCurrentPlayer();
-		}
-	}
 
 	public boolean isWhite() {
 		return (this instanceof WhitePlayer);

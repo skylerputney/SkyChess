@@ -60,6 +60,7 @@ public class Tile {
 		return false;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		if(!(o instanceof Tile))
 			return false;

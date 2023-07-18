@@ -131,7 +131,7 @@ public class GUI {
 								sourceTile = null;
 								destTile = null;
 								pieceToMove = null;
-									board.getCurrentPlayer().executeMove(move);
+								move.executeMove();
 							}
 							else {//logic if move is not valid
 								sourceTile = null;

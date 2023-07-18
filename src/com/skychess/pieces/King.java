@@ -55,13 +55,18 @@ public class King extends Piece {
 	public Move getQueenSideCastleMove(Board b) {
 		Piece queenSide;
 		Tile currTile = this.getCurrentTile();
+		Tile rookTile;//currently makes it s.t. have to click tile to side of Rook to properly Castle (Broken)
 		Tile destTile;
 		int currRank = currTile.getRank() - 1;
-		if(this.isWhite())
+		if(this.isWhite()) {
+			rookTile = b.getTile(0, 7);
 			destTile = b.getTile(0, 7);
-		else
+		}
+		else {
+			rookTile = b.getTile(0, 0);
 			destTile = b.getTile(0, 0);
-		queenSide = destTile.getPiece();
+		}
+		queenSide = rookTile.getPiece();
 		if(!(queenSide instanceof Rook))
 			return null;
 		if(!((Rook) queenSide).isFirstMove())
@@ -83,13 +88,18 @@ public class King extends Piece {
 	public Move getKingSideCastleMove(Board b) {
 		Piece kingSide;
 		Tile currTile = this.getCurrentTile();
+		Tile rookTile;
 		Tile destTile;
 		int currRank = currTile.getRank() + 1;
-		if(this.isWhite())
+		if(this.isWhite()) {
+			rookTile = b.getTile(7, 7);
 			destTile = b.getTile(7, 7);
-		else
+		}
+		else {
+			rookTile = b.getTile(7, 0);
 			destTile = b.getTile(7, 0);
-		kingSide = destTile.getPiece();
+		}
+		kingSide = rookTile.getPiece();
 		if(!(kingSide instanceof Rook))
 			return null;
 		if(!((Rook) kingSide).isFirstMove())
